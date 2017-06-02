@@ -1,14 +1,13 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Terry Chen <seterrychen@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV TIMEOUT 12h
-ENV MIRROR_URL http://archive.ubuntu.com/ubuntu
+ENV RESYNC_PERIOD 12h
 
 RUN \
   apt-get update && \
-  apt-get install -y apt-mirror rsync apache2 && \
-  apt-get clean && \
+  apt-get install -y  --no-install-recommends apt-mirror rsync apache2 && \
+  apt-get autoclean && \
   mv /etc/apt/mirror.list / && \
   rm -rf /var/lib/apt/lists/*
 
